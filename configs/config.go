@@ -1,8 +1,11 @@
 package configs
 
-import (
-	"fmt"
+import(
 	"os"
+	"fmt"
+	"strconv"
+	"github.com/lpernett/godotenv"
+	"github.com/go-chi/jwtauth"
 )
 
 var (
@@ -10,25 +13,52 @@ var (
 )
 
 type config struct {
-	db_driver       string
-	db_host         string
-	db_port         string
-	db_user         string
-	db_password     string
-	db_name         string
-	web_server_port string
-	jwt_secret      string
-	jwt_exxperesIn  int
+	dbDriver      string
+	dbHost        string
+	dbPort        string
+	dbUser        string
+	dbPassword    string
+	dbName        string
+	webServerPort string
+	jwtSecret     string
+	jwtExpiresIn  int
+	tokenAuth *jwtauth.JWTAuth
 }
 
 func NewConfig() *config {
 	return cfg
 }
 
+func (c *config) GetDBDriver() string {
+	return c.dbDriver
+}
+
+func (c *config) GetDBHost() string {
+	return c.dbHost
+}
+
+func (c *config) GetDBPort() string {
+	return c.dbPort
+}
+
 func init() {
 
-	env := os.Getenv("DB_DRIVER")
+	cfg = &config{}
 
-	fmt.Println(env)
+	err := godotenv.Load()
+	if err != nil {
+	  fmt.Println("Error loading .env file")
+	}
 
+	cfg.dbDriver = os.Getenv("DB_DRIVER")
+	cfg.dbHost = os.Getenv("DB_HOST")
+	cfg.dbPort = os.Getenv("DB_PORT")
+	cfg.dbUser = os.Getenv("DB_USER")
+	cfg.dbPassword = os.Getenv("DB_PASSWORD")
+	cfg.dbName = os.Getenv("DB_NAME")
+	cfg.webServerPort = os.Getenv("WEB_SERVER_PORT")
+	cfg.jwtSecret = os.Getenv("JWT_SECRET")
+	jwtExpiresIn, _ := strconv.Atoi(os.Getenv("JWT_EXPIRESIN"))
+	cfg.jwtExpiresIn = jwtExpiresIn
+	cfg.tokenAuth = jwtauth.New("HS256", []byte(cfg.jwtSecret), nil)
 }

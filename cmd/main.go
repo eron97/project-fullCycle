@@ -1,8 +1,12 @@
 package main
 
-import "github.com/eron97/project-fullCycle.git/configs"
+import (
+	"fmt"
+	"github.com/eron97/project-fullCycle.git/configs"
+)
 
 func main() {
-	config := configs.NewConfig()
-	println(config)
+	cfg := configs.NewConfig()
+	driver := cfg.GetDBDriver()
+	fmt.Println(driver)
 }
