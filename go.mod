@@ -8,8 +8,11 @@ require (
 	golang.org/x/crypto v0.21.0
 )
 
+require github.com/stretchr/testify v1.9.0 // indirect
+
 require (
 	github.com/goccy/go-json v0.3.5 // indirect
+	github.com/google/uuid v1.6.0
 	github.com/lestrrat-go/backoff/v2 v2.0.7 // indirect
 	github.com/lestrrat-go/httpcc v1.0.0 // indirect
 	github.com/lestrrat-go/iter v1.0.0 // indirect
