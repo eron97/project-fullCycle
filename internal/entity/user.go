@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	ID       entity.ID `json:"id"` // Nosso value-object
+	ID       entity.ID `json:"id"` // Nosso value-object usa  UUIDs (Identificador Universal Unico do Google)
 	Name     string    `json:"name"`
 	Email    string    `json:"email"`
 	Password string    `json:"passoword"`
