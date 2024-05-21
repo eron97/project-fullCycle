@@ -8,6 +8,7 @@ import (
 	"github.com/eron97/project-fullCycle.git/internal/dto"
 	"github.com/eron97/project-fullCycle.git/internal/entity"
 	"github.com/go-chi/chi/v5"
+	"github.com/google/uuid"
 )
 
 type ProductHandler struct {
@@ -59,6 +60,13 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
+type ID = uuid.UUID
+
+func ParseID(s string) (ID, error) {
+	id, err := uuid.Parse(s)
+	return ID(id), err
+}
+
 func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
@@ -74,7 +82,8 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = h.ProductDB.FindByID(id)
+	// Converter o ID obtido da URL para o tipo correto
+	product.ID, err = ParseID(id)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -87,5 +96,4 @@ func (h *ProductHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-
 }
