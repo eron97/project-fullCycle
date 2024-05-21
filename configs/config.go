@@ -1,11 +1,12 @@
 package configs
 
-import(
-	"os"
+import (
 	"fmt"
+	"os"
 	"strconv"
-	"github.com/lpernett/godotenv"
+
 	"github.com/go-chi/jwtauth"
+	"github.com/lpernett/godotenv"
 )
 
 var (
@@ -22,23 +23,19 @@ type config struct {
 	webServerPort string
 	jwtSecret     string
 	jwtExpiresIn  int
-	tokenAuth *jwtauth.JWTAuth
+	tokenAuth     *jwtauth.JWTAuth
 }
 
 func NewConfig() *config {
 	return cfg
 }
 
-func (c *config) GetDBDriver() string {
-	return c.dbDriver
+func (c *config) GettokenAuth() *jwtauth.JWTAuth {
+	return c.tokenAuth
 }
 
-func (c *config) GetDBHost() string {
-	return c.dbHost
-}
-
-func (c *config) GetDBPort() string {
-	return c.dbPort
+func (c *config) GetjwtExpiresIn() int {
+	return c.jwtExpiresIn
 }
 
 func init() {
@@ -47,7 +44,7 @@ func init() {
 
 	err := godotenv.Load()
 	if err != nil {
-	  fmt.Println("Error loading .env file")
+		fmt.Println("Error loading .env file")
 	}
 
 	cfg.dbDriver = os.Getenv("DB_DRIVER")

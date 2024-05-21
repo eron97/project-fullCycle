@@ -15,7 +15,6 @@ import (
 
 func main() {
 	cfg := configs.NewConfig()
-	_ = cfg.GetDBDriver()
 
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
@@ -28,11 +27,17 @@ func main() {
 	// com ela podemos trabalhar de maneira organizada e encapsulada.
 	productDB := database.NewProduct(db)
 	productHandler := handlers.NewProductHandler(productDB)
+
+	userDB := database.NewUser(db)
+	userHandler := handlers.NewUserHandler(userDB, cfg.GettokenAuth(), cfg.GetjwtExpiresIn())
+
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Post("/products", productHandler.CreateProduct)
 	r.Get("/products/{id}", productHandler.GetProduct)
 	r.Put("/products/{id}", productHandler.UpdateProduct)
+	r.Post("/users", userHandler.Create)
+	r.Post("/users/generate_token", userHandler.GetJWT)
 	http.ListenAndServe(":8080", r)
 
 }
