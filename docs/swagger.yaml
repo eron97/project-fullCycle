@@ -1,0 +1,16 @@
+basePath: /
+host: localhost:8000
+info:
+  contact:
+    name: Eron Betine
+  description: Product API with authentication
+  termsOfService: http://swagger.io/terms/
+  title: Go Experct API Example
+  version: "1.0"
+paths: {}
+securityDefinitions:
+  ApikeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
