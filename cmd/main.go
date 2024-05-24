@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"github.com/eron97/project-fullCycle.git/configs"
-	"github.com/eron97/project-fullCycle.git/infra/database"
-	"github.com/eron97/project-fullCycle.git/infra/webserver/handlers"
+	_ "github.com/eron97/project-fullCycle.git/docs"
 	"github.com/eron97/project-fullCycle.git/internal/entity"
+	"github.com/eron97/project-fullCycle.git/internal/infra/database"
+	"github.com/eron97/project-fullCycle.git/internal/infra/webserver/handlers"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth"

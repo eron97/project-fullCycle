@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/eron97/project-fullCycle.git/infra/database"
 	"github.com/eron97/project-fullCycle.git/internal/dto"
 	"github.com/eron97/project-fullCycle.git/internal/entity"
+	"github.com/eron97/project-fullCycle.git/internal/infra/database"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 )
